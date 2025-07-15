@@ -332,22 +332,50 @@ export default function Home() {
           className="w-full flex flex-col gap-4 max-w-md mx-auto"
         >
           <form
-            onSubmit={e => { e.preventDefault(); alert('¡Gracias! Te contactaremos pronto.'); }}
+            onSubmit={async (e) => {
+              e.preventDefault();
+              const formData = new FormData(e.currentTarget);
+              const nombre = formData.get('nombre') as string;
+              const email = formData.get('email') as string;
+              const mensaje = formData.get('mensaje') as string;
+
+              try {
+                const response = await fetch('/api/contact', {
+                  method: 'POST',
+                  headers: {
+                    'Content-Type': 'application/json',
+                  },
+                  body: JSON.stringify({ nombre, email, mensaje }),
+                });
+
+                if (response.ok) {
+                  alert('¡Gracias! Te contactaremos pronto.');
+                  e.currentTarget.reset();
+                } else {
+                  alert('Hubo un error. Por favor intenta de nuevo.');
+                }
+              } catch (error) {
+                alert('Hubo un error. Por favor intenta de nuevo.');
+              }
+            }}
             className="flex flex-col gap-4"
           >
             <input 
               type="text" 
+              name="nombre"
               required 
               placeholder="Nombre" 
               className={`rounded-lg px-4 ${isMobile ? 'py-4 text-base' : 'py-3'} bg-blue-950/60 text-white placeholder:text-blue-300 focus:outline-none focus:ring-2 focus:ring-blue-400`} 
             />
             <input 
               type="email" 
+              name="email"
               required 
               placeholder="Correo electrónico" 
               className={`rounded-lg px-4 ${isMobile ? 'py-4 text-base' : 'py-3'} bg-blue-950/60 text-white placeholder:text-blue-300 focus:outline-none focus:ring-2 focus:ring-blue-400`} 
             />
             <textarea 
+              name="mensaje"
               required 
               placeholder="¿En qué te podemos ayudar?" 
               className={`rounded-lg px-4 ${isMobile ? 'py-4 text-base' : 'py-3'} bg-blue-950/60 text-white placeholder:text-blue-300 focus:outline-none focus:ring-2 focus:ring-blue-400`} 
