@@ -6,7 +6,7 @@ import Link from "next/link";
 
 export default function Funcionalidades() {
   return (
-    <div className="min-h-screen flex flex-col items-center justify-center bg-gradient-to-br from-[#0a1a3a] via-[#1e3a8a] to-[#0a1a3a] p-8">
+    <div className="min-h-screen flex flex-col items-center justify-center bg-gradient-to-br from-[#0a1a3a] via-[#1e3a8a] to-[#0a1a3a] p-8 pt-32">
       {/* HERO animado */}
       <motion.div
         initial={{ opacity: 0, y: -40 }}

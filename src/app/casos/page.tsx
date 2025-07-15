@@ -86,7 +86,7 @@ export default function Casos() {
   }, [isMobile]);
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-[#0a1a3a] via-[#1e3a8a] to-[#0a1a3a] p-8 overflow-hidden">
+    <div className="min-h-screen bg-gradient-to-br from-[#0a1a3a] via-[#1e3a8a] to-[#0a1a3a] p-8 pt-32 overflow-hidden">
       {/* Hero Section */}
       <motion.div
         initial={{ opacity: 0, y: -50 }}
