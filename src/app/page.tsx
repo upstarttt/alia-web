@@ -4,7 +4,7 @@ import Image from "next/image";
 import { motion } from "framer-motion";
 import { FaArrowRight, FaChalkboardUser, FaRobot, FaChartBar, FaPalette } from "react-icons/fa6";
 import { useMediaQuery } from "react-responsive";
-import LogoPlaceholder from "./components/LogoPlaceholder";
+
 
 export default function Home() {
   const isMobile = useMediaQuery({ maxWidth: 767 });
@@ -29,32 +29,12 @@ export default function Home() {
     delay: number;
   }>>([]);
 
-  // Estado para manejar errores de carga de logos
-  const [logoErrors, setLogoErrors] = useState<Set<string>>(new Set());
 
-  // Solo usar los logos que realmente existen
-  const logos = [
-    { src: "/logos/empresa2.png", alt: "Empresa 2" },
-    { src: "/logos/empresa4.png", alt: "Empresa 4" },
-    { src: "/logos/empresa5.png", alt: "Empresa 5" },
-    { src: "/logos/empresa6.png", alt: "Empresa 6" },
-    { src: "/logos/empresa7.png", alt: "Empresa 7" },
-    { src: "/logos/empresa8.png", alt: "Empresa 8" },
-    { src: "/logos/empresa9.png", alt: "Empresa 9" },
-    { src: "/logos/empresa10.png", alt: "Empresa 10" },
-    { src: "/logos/empresa11.png", alt: "Empresa 11" },
-    { src: "/logos/empresa12.png", alt: "Empresa 12" },
-    { src: "/logos/empresa13.png", alt: "Empresa 13" },
-    { src: "/logos/empresa14.png", alt: "Empresa 14" },
-    { src: "/logos/empresa15.png", alt: "Empresa 15" },
-    { src: "/logos/empresa16.png", alt: "Empresa 16" },
-    { src: "/logos/empresa17.png", alt: "Empresa 17" },
-    { src: "/logos/empresa18.png", alt: "Empresa 18" },
-    { src: "/logos/empresa19.png", alt: "Empresa 19" },
-    { src: "/logos/empresa20.png", alt: "Empresa 20" },
-    { src: "/logos/empresa21.png", alt: "Empresa 21" },
-    { src: "/logos/empresa22.png", alt: "Empresa 22" },
-  ];
+
+  const logos = Array.from({length: 22}).map((_, i) => ({
+    src: `/logos/empresa${i+1}.png`,
+    alt: `Empresa ${i+1}`
+  }));
   const logosCarrusel = [...logos, ...logos];
 
   // Efecto para partículas
@@ -395,26 +375,14 @@ export default function Home() {
             transition={{ repeat: Infinity, duration: isMobile ? 30 : 40, ease: "linear" }}
           >
             {logosCarrusel.map((logo, i) => (
-              <div key={i} className="flex items-center justify-center">
-                {logoErrors.has(logo.src) ? (
-                  <LogoPlaceholder 
-                    width={isMobile ? 100 : 120} 
-                    height={isMobile ? 50 : 60} 
-                    companyName={logo.alt}
-                  />
-                ) : (
-                  <Image
-                    src={logo.src}
-                    alt={logo.alt}
-                    width={isMobile ? 100 : 120}
-                    height={isMobile ? 50 : 60}
-                    className="transition-all duration-300 drop-shadow-xl opacity-90"
-                    onError={() => {
-                      setLogoErrors(prev => new Set(prev).add(logo.src));
-                    }}
-                  />
-                )}
-              </div>
+              <Image
+                key={i}
+                src={logo.src}
+                alt={logo.alt}
+                width={isMobile ? 100 : 120}
+                height={isMobile ? 50 : 60}
+                className="transition-all duration-300 drop-shadow-xl opacity-90"
+              />
             ))}
           </motion.div>
         </div>
