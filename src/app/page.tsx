@@ -331,35 +331,7 @@ export default function Home() {
           transition={{ delay: 0.5, duration: 0.7 }}
           className="w-full flex flex-col gap-4 max-w-md mx-auto"
         >
-          <form
-            onSubmit={async (e) => {
-              e.preventDefault();
-              const formData = new FormData(e.currentTarget);
-              const nombre = formData.get('nombre') as string;
-              const email = formData.get('email') as string;
-              const mensaje = formData.get('mensaje') as string;
-
-              try {
-                const response = await fetch('/api/contact', {
-                  method: 'POST',
-                  headers: {
-                    'Content-Type': 'application/json',
-                  },
-                  body: JSON.stringify({ nombre, email, mensaje }),
-                });
-
-                if (response.ok) {
-                  alert('¡Gracias! Te contactaremos pronto.');
-                  e.currentTarget.reset();
-                } else {
-                  alert('Hubo un error. Por favor intenta de nuevo.');
-                }
-              } catch {
-                alert('Hubo un error. Por favor intenta de nuevo.');
-              }
-            }}
-            className="flex flex-col gap-4"
-          >
+          <form className="flex flex-col gap-4" onSubmit={e => { e.preventDefault(); alert('Este formulario está temporalmente deshabilitado. Por favor agenda una llamada.'); }}>
             <input 
               type="text" 
               name="nombre"
@@ -388,6 +360,17 @@ export default function Home() {
               Enviar <FaArrowRight />
             </button>
           </form>
+          <div className="mt-8 text-center">
+            <p className="text-blue-200 mb-4 text-base sm:text-lg">¿Prefieres agendar una llamada? Haz clic aquí para reservar una reunión con nosotros y te contactaremos personalmente.</p>
+            <a
+              href="https://calendly.com/jorgefloresrv/30min"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-block px-8 py-4 rounded-full bg-gradient-to-r from-blue-500 to-blue-600 text-white font-bold text-lg shadow-lg hover:shadow-xl transition-all duration-200"
+            >
+              Agendar llamada en Calendly
+            </a>
+          </div>
         </motion.div>
       </section>
 
