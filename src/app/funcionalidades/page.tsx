@@ -1,7 +1,8 @@
 "use client";
 import React from "react";
 import { motion } from "framer-motion";
-import { FaUser, FaChalkboardUser, FaBrain, FaUserTie, FaChartLine, FaArrowRight, FaHeart } from "react-icons/fa6";
+import { FaUser, FaChalkboardUser, FaBrain, FaUserTie, FaChartLine, FaArrowRight } from "react-icons/fa6";
+import Link from "next/link";
 
 export default function Funcionalidades() {
   return (
@@ -121,12 +122,12 @@ export default function Funcionalidades() {
         transition={{ duration: 0.7, delay: 0.5 }}
         className="flex flex-col items-center gap-4 mt-8"
       >
-        <a
+        <Link
           href="/#demo"
           className="inline-flex items-center gap-3 px-8 py-4 rounded-full bg-blue-500 text-white font-bold text-lg shadow-lg hover:bg-blue-600 transition-all duration-200 mt-4"
         >
           Solicita una demo <FaArrowRight />
-        </a>
+        </Link>
         <span className="text-blue-200 text-sm">Descubre cómo aliA puede transformar el desarrollo humano en tu empresa</span>
       </motion.div>
       <style>{`

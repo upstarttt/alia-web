@@ -7,13 +7,62 @@ import { useMediaQuery } from "react-responsive";
 
 export default function Home() {
   const isMobile = useMediaQuery({ maxWidth: 767 });
-  const isTablet = useMediaQuery({ minWidth: 768, maxWidth: 1023 });
+  
+  // Estados para partículas y burbujas
+  const [particulas, setParticulas] = useState<Array<{
+    size: number;
+    left: number;
+    top: number;
+    color: string;
+    xMove: number;
+    delay: number;
+    duration: number;
+  }>>([]);
+  
+  const [burbujas, setBurbujas] = useState<Array<{
+    width: number;
+    height: number;
+    left: number;
+    bottom: number;
+    duration: number;
+    delay: number;
+  }>>([]);
 
   const logos = Array.from({length: 22}).map((_, i) => ({
     src: `/logos/empresa${i+1}.png`,
     alt: `Empresa ${i+1}`
   }));
   const logosCarrusel = [...logos, ...logos];
+
+  // Efecto para partículas
+  useEffect(() => {
+    if (!isMobile) {
+      const arr = Array.from({ length: 16 }, (_, i) => {
+        const size = i % 4 === 0 ? 32 + Math.random() * 24 : 16 + Math.random() * 16;
+        const left = Math.random() * 100;
+        const top = Math.random() * 60;
+        const color = 'bg-white/80';
+        const xMove = (Math.random() - 0.5) * 60;
+        return { size, left, top, color, xMove, delay: i * 0.5, duration: 5 + Math.random() * 2.5 };
+      });
+      setParticulas(arr);
+    }
+  }, [isMobile]);
+
+  // Efecto para burbujas
+  useEffect(() => {
+    if (!isMobile) {
+      const arr = Array.from({ length: 18 }, () => ({
+        width: 60 + Math.random() * 80,
+        height: 60 + Math.random() * 80,
+        left: Math.random() * 100,
+        bottom: Math.random() * 80,
+        duration: 8 + Math.random() * 4,
+        delay: Math.random() * 9
+      }));
+      setBurbujas(arr);
+    }
+  }, [isMobile]);
 
   return (
     <div className="relative min-h-screen bg-gradient-to-br from-[#0a1a3a] via-[#1e3a8a] to-[#0a1a3a] overflow-x-hidden">
@@ -28,44 +77,30 @@ export default function Home() {
       )}
 
       {/* Partículas flotantes HERO - solo en desktop */}
-      {!isMobile && (() => {
-        const [particulas, setParticulas] = useState<any[]>([]);
-        useEffect(() => {
-          const arr = Array.from({ length: 16 }, (_, i) => {
-            const size = i % 4 === 0 ? 32 + Math.random() * 24 : 16 + Math.random() * 16;
-            const left = Math.random() * 100;
-            const top = Math.random() * 60;
-            const color = 'bg-white/80';
-            const xMove = (Math.random() - 0.5) * 60;
-            return { size, left, top, color, xMove, delay: i * 0.5, duration: 5 + Math.random() * 2.5 };
-          });
-          setParticulas(arr);
-        }, []);
-        return (
-          <div className="absolute inset-0 z-0 pointer-events-none overflow-hidden">
-            {particulas.map((p, i) => (
-              <motion.div
-                key={i}
-                initial={{ y: 0, x: 0, opacity: 0.7 }}
-                animate={{ y: [0, -60, 0], x: [0, p.xMove, 0], opacity: [0.9, 0.7, 0.9] }}
-                transition={{
-                  duration: p.duration,
-                  repeat: Infinity,
-                  delay: p.delay,
-                  ease: "easeInOut",
-                }}
-                className={`absolute rounded-full ${p.color} blur-lg`}
-                style={{
-                  width: p.size,
-                  height: p.size,
-                  left: `${p.left}%`,
-                  top: `${p.top}%`,
-                }}
-              />
-            ))}
-          </div>
-        );
-      })()}
+      {!isMobile && (
+        <div className="absolute inset-0 z-0 pointer-events-none overflow-hidden">
+          {particulas.map((p, i) => (
+            <motion.div
+              key={i}
+              initial={{ y: 0, x: 0, opacity: 0.7 }}
+              animate={{ y: [0, -60, 0], x: [0, p.xMove, 0], opacity: [0.9, 0.7, 0.9] }}
+              transition={{
+                duration: p.duration,
+                repeat: Infinity,
+                delay: p.delay,
+                ease: "easeInOut",
+              }}
+              className={`absolute rounded-full ${p.color} blur-lg`}
+              style={{
+                width: p.size,
+                height: p.size,
+                left: `${p.left}%`,
+                top: `${p.top}%`,
+              }}
+            />
+          ))}
+        </div>
+      )}
 
       {/* HERO optimizado para móvil */}
       <section className={`relative z-10 flex flex-col items-center justify-center ${isMobile ? 'min-h-[70vh]' : 'min-h-[80vh]'} text-center gap-8 pt-24`}>
@@ -356,44 +391,30 @@ export default function Home() {
       </footer>
 
       {/* Animación personalizada: burbujas - solo en desktop */}
-      {!isMobile && (() => {
-        const [burbujas, setBurbujas] = useState<any[]>([]);
-        useEffect(() => {
-          const arr = Array.from({ length: 18 }, () => ({
-            width: 60 + Math.random() * 80,
-            height: 60 + Math.random() * 80,
-            left: Math.random() * 100,
-            bottom: Math.random() * 80,
-            duration: 8 + Math.random() * 4,
-            delay: Math.random() * 9
-          }));
-          setBurbujas(arr);
-        }, []);
-        return (
-          <div className="pointer-events-none fixed inset-0 z-0 overflow-hidden">
-            {burbujas.map((b, i) => (
-              <motion.div
-                key={i}
-                initial={{ y: 0, opacity: 0.2 }}
-                animate={{ y: [0, -100, 0], opacity: [0.2, 0.5, 0.2] }}
-                transition={{
-                  duration: b.duration,
-                  repeat: Infinity,
-                  delay: b.delay,
-                  ease: "easeInOut",
-                }}
-                className="absolute rounded-full bg-blue-400/20 blur-2xl"
-                style={{
-                  width: b.width,
-                  height: b.height,
-                  left: `${b.left}%`,
-                  bottom: `${b.bottom}%`,
-                }}
-              />
-            ))}
-          </div>
-        );
-      })()}
+      {!isMobile && (
+        <div className="pointer-events-none fixed inset-0 z-0 overflow-hidden">
+          {burbujas.map((b, i) => (
+            <motion.div
+              key={i}
+              initial={{ y: 0, opacity: 0.2 }}
+              animate={{ y: [0, -100, 0], opacity: [0.2, 0.5, 0.2] }}
+              transition={{
+                duration: b.duration,
+                repeat: Infinity,
+                delay: b.delay,
+                ease: "easeInOut",
+              }}
+              className="absolute rounded-full bg-blue-400/20 blur-2xl"
+              style={{
+                width: b.width,
+                height: b.height,
+                left: `${b.left}%`,
+                bottom: `${b.bottom}%`,
+              }}
+            />
+          ))}
+        </div>
+      )}
       
       <style>{`
         .animate-bounce-slow {

@@ -1,8 +1,9 @@
 "use client";
 import React, { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { FaTrophy, FaChartLine, FaUsers, FaRocket, FaHeart } from "react-icons/fa6";
+import { FaTrophy } from "react-icons/fa6";
 import { useMediaQuery } from "react-responsive";
+import Image from "next/image";
 
 // Array con 19 empresas reales - Reemplaza los nombres y rutas de logos según tus archivos
 const empresas = [
@@ -32,7 +33,6 @@ const empresas = [
 
 export default function Casos() {
   const isMobile = useMediaQuery({ maxWidth: 767 });
-  const isTablet = useMediaQuery({ minWidth: 768, maxWidth: 1023 });
   
   const [hoveredIndex, setHoveredIndex] = useState<number | null>(null);
   const [selectedEmpresa, setSelectedEmpresa] = useState<typeof empresas[0] | null>(null);
@@ -148,9 +148,11 @@ export default function Casos() {
                 transition={{ duration: 0.3 }}
                 className={`mb-3 flex justify-center items-center ${isMobile ? 'w-32 h-16' : 'w-36 h-20'} mx-auto`}
               >
-                <img 
+                <Image 
                   src={empresa.logo} 
                   alt={`Logo de ${empresa.nombre}`}
+                  width={isMobile ? 128 : 144}
+                  height={isMobile ? 64 : 80}
                   className={`max-h-full max-w-full object-contain transition-all duration-300 ${hoveredIndex === index || autoActive.includes(index) ? 'opacity-100 filter-none' : 'opacity-80 filter brightness-0 invert'}`}
                   onError={(e) => {
                     // Fallback si la imagen no carga
@@ -192,9 +194,11 @@ export default function Casos() {
             >
               <div className="text-center">
                 <div className={`mb-6 flex justify-center items-center ${isMobile ? 'h-16' : 'h-20'}`}>
-                  <img 
+                  <Image 
                     src={selectedEmpresa.logo} 
                     alt={`Logo de ${selectedEmpresa.nombre}`}
+                    width={isMobile ? 64 : 80}
+                    height={isMobile ? 64 : 80}
                     className="max-h-full max-w-full object-contain"
                     onError={(e) => {
                       const target = e.target as HTMLImageElement;
@@ -205,9 +209,9 @@ export default function Casos() {
                   <span className={`${isMobile ? 'text-5xl' : 'text-6xl'} hidden`}>🏢</span>
                 </div>
                 <p className={`text-blue-200 ${isMobile ? 'text-xs' : 'text-sm'}`}>
-                  "Con aliA transformamos completamente nuestro enfoque al desarrollo humano. 
+                  &quot;Con aliA transformamos completamente nuestro enfoque al desarrollo humano. 
                   Los resultados superaron nuestras expectativas y ahora tenemos una cultura 
-                  de crecimiento continuo."
+                  de crecimiento continuo.&quot;
                 </p>
               </div>
             </motion.div>
