@@ -233,6 +233,10 @@ export default function Casos() {
         <motion.button
           whileHover={{ scale: 1.05 }}
           whileTap={{ scale: 0.95 }}
+          onClick={() => {
+            // Scroll to demo section on homepage
+            window.location.href = '/#demo';
+          }}
           className={`bg-gradient-to-r from-yellow-500 to-orange-500 text-black ${isMobile ? 'px-6 py-3 text-base' : 'px-8 py-4 text-lg'} rounded-full font-bold shadow-lg hover:shadow-xl transition-all duration-200`}
         >
           Solicita tu demo gratuita

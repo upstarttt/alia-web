@@ -27,8 +27,8 @@ export default function Header() {
             <Link href="/casos" className="text-blue-200 hover:text-white transition-colors duration-200">
               Casos de Éxito
             </Link>
-            <Link href="/empresas" className="text-blue-200 hover:text-white transition-colors duration-200">
-              Empresas
+            <Link href="/contratar" className="text-blue-200 hover:text-white transition-colors duration-200">
+              Contratar
             </Link>
             <Link href="/plataforma" className="text-blue-200 hover:text-white transition-colors duration-200">
               Plataforma
@@ -70,11 +70,11 @@ export default function Header() {
                 Casos de Éxito
               </Link>
               <Link
-                href="/empresas"
+                href="/contratar"
                 className="block px-3 py-2 text-blue-200 hover:text-white hover:bg-blue-700/50 rounded-md transition-colors duration-200"
                 onClick={() => setIsMenuOpen(false)}
               >
-                Empresas
+                Contratar
               </Link>
               <Link
                 href="/plataforma"
