@@ -354,7 +354,7 @@ export default function Home() {
                 } else {
                   alert('Hubo un error. Por favor intenta de nuevo.');
                 }
-              } catch (error) {
+              } catch {
                 alert('Hubo un error. Por favor intenta de nuevo.');
               }
             }}

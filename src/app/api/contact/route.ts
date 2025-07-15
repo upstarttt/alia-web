@@ -17,7 +17,7 @@ export async function POST(request: NextRequest) {
     }
 
     // Enviar email usando Resend
-    const { data, error } = await resend.emails.send({
+    const { error } = await resend.emails.send({
       from: 'aliA <noreply@alia-web.com>',
       to: ['jorgefloresrv@gmail.com'],
       subject: `Nueva solicitud de demo de aliA - ${nombre}`,

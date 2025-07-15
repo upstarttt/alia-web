@@ -1,7 +1,7 @@
 "use client";
 import React from "react";
 import { motion } from "framer-motion";
-import { FaCheck, FaArrowRight, FaStar, FaUsers, FaRocket, FaCrown } from "react-icons/fa6";
+import { FaCheck, FaArrowRight, FaStar, FaUsers, FaRocket } from "react-icons/fa6";
 import Link from "next/link";
 
 export default function Contratar() {
@@ -164,7 +164,7 @@ export default function Contratar() {
                   <FaStar key={i} className="text-yellow-400 text-lg" />
                 ))}
               </div>
-              <p className="text-blue-100 text-sm mb-4 italic">"{testimonio.texto}"</p>
+              <p className="text-blue-100 text-sm mb-4 italic">&quot;{testimonio.texto}&quot;</p>
               <div>
                 <p className="text-white font-semibold text-sm">{testimonio.autor}</p>
                 <p className="text-blue-300 text-xs">{testimonio.cargo}, {testimonio.empresa}</p>
